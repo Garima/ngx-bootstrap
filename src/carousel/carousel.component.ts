@@ -29,7 +29,16 @@ export enum Direction {UNKNOWN, NEXT, PREV}
   template: `
     <div (mouseenter)="pause()" (mouseleave)="play()" (mouseup)="play()" class="carousel slide">
       <ol class="carousel-indicators" *ngIf="slides.length > 1">
-         <li *ngFor="let slidez of slides; let i = index;" [class.active]="slidez.active === true" (click)="selectSlide(i)"></li>
+         <li *ngFor="let slidez of slides; let i = index;" [class.active]="slidez.active === true" (click)="selectSlide(i)">
+            <svg version="1.1" id="animated-svg-{{i}}" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                <g id="cd-loading">
+                    <g id="cd-circle">
+                        <circle id="loading_circle_{{i}}" class="stroke stroke-color" cx="10" cy="10" r="8"/>
+                        <circle id="loading_circle_over_{{i}}" class="stroke" [class.stroke-color-over]="slidez.active === true" cx="10" cy="10" r="8"/>
+                    </g>
+                </g>
+            </svg>
+        </li>
       </ol>
       <div class="carousel-inner"><ng-content></ng-content></div>
       <a class="left carousel-control carousel-control-prev" [class.disabled]="activeSlide === 0 && noWrap" (click)="previousSlide()" *ngIf="slides.length > 1">
